@@ -30,4 +30,12 @@ public class CurrencyTest {
 
         assertThat(actual, is(closeTo(rupeeToDollar,0.001)));
     }
+
+    @Test
+    void shouldBeAbleToConvertUSDollarToUSDollar() {
+        double dollarToDollar = Currency.US_Dollar.convertToUsDollar(3);
+        double actual = 3;
+
+        assertThat(actual, is(closeTo(dollarToDollar,0.001)));
+    }
 }
