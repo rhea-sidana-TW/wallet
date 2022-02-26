@@ -100,4 +100,14 @@ public class WalletTest {
 
         assertFalse(((Owner)owner).isMoneyCredited());
     }
+
+    @Test
+    void shouldBeAbleToNotifyWalletOwnerWhenMoneyDebitedInTheWallet() throws WalletMoneyLessThanZeroException, DebitMoneyGreaterThanWalletMoneyException {
+        WalletOwner owner = new Owner();
+        Wallet wallet = createIndianRupeeWallet(300,owner);
+
+        wallet.debit(100);
+
+        assertTrue(((Owner)owner).isMoneyDebited());
+    }
 }

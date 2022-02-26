@@ -37,6 +37,7 @@ public class Wallet {
     public void debit(double amount) throws DebitMoneyGreaterThanWalletMoneyException {
         if (this.money - amount < 0) throw new DebitMoneyGreaterThanWalletMoneyException();
         this.money -= amount;
+        owner.notifyMoneyDebited();
     }
 
 }
