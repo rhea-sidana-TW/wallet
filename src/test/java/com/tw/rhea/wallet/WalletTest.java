@@ -10,13 +10,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class WalletTest {
     @Test
-    void shouldBeAbleToCreditMoneyInTheWallet() throws MoneyLessThanOneException{
+    void shouldBeAbleToCreditMoneyInTheWalletWhenCreditMoenyIsTwoHundred() throws MoneyLessThanOneException{
         Wallet wallet = new Wallet(100);
 
         wallet.credit(200);
-        double actual = 300.0;
+        double actualMoney = 300.0;
 
-        assertThat(actual, is(closeTo(wallet.checkBalance(), 0.001)));
+        assertThat(actualMoney, is(closeTo(wallet.checkBalance(), 0.001)));
     }
 
     @Test
@@ -24,5 +24,15 @@ public class WalletTest {
         Wallet wallet = new Wallet(100);
 
         assertThrows(MoneyLessThanOneException.class,()->wallet.credit(0));
+    }
+
+    @Test
+    void shouldBeAbleToCreditMoneyWhenCreditedMoneyIsOne() throws MoneyLessThanOneException {
+        Wallet wallet = new Wallet(100);
+
+        wallet.credit(1);
+        double actualMoney = 101.0;
+
+        assertThat(actualMoney,is(closeTo(wallet.checkBalance(),0.001)));
     }
 }
