@@ -9,6 +9,7 @@ import static com.tw.rhea.wallet.Wallet.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class WalletTest {
     @Test
@@ -76,9 +77,18 @@ public class WalletTest {
     @Test
     void shouldBeAbleToCreateUSDollarWallet() throws WalletMoneyLessThanZeroException {
         WalletOwner owner = new Owner();
-        Wallet wallet = Wallet.createUSDollarWallet(100, owner);
+        Wallet wallet = createUSDollarWallet(100, owner);
 
         assertThat(100.0, is(closeTo(wallet.checkBalance(), 0.001)));
     }
 
+    @Test
+    void shouldBeAbleToNotifyOwnerWhenMoneyCreditedInTheWallet() throws WalletMoneyLessThanZeroException, CreditMoneyLessThanOneException {
+        WalletOwner owner = new Owner();
+        Wallet wallet = createIndianRupeeWallet(300,owner);
+
+        wallet.credit(100);
+
+        assertTrue(((Owner)owner).isMoneyCredited());
+    }
 }

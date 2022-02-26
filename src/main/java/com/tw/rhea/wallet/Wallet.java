@@ -27,6 +27,7 @@ public class Wallet {
     public void credit(double amount) throws CreditMoneyLessThanOneException {
         if (amount < 1.0) throw new CreditMoneyLessThanOneException();
         this.money += amount;
+        owner.notifyMoneyCredited();
     }
 
     public double checkBalance() {
