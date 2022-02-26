@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class WalletTest {
     @Test
-    void shouldBeAbleToCreditMoneyInTheWalletWhenCreditMoenyIsTwoHundred() throws MoneyLessThanOneException, WalletMoneyLessThanZeroException {
+    void shouldBeAbleToCreditMoneyInTheWalletWhenCreditMoneyIsTwoHundred() throws MoneyLessThanOneException, WalletMoneyLessThanZeroException {
         Wallet wallet = new Wallet(100);
 
         wallet.credit(200);
@@ -21,14 +21,14 @@ public class WalletTest {
     }
 
     @Test
-    void shouldNotBeAbleToCreditMoneyWhenCreditedMoneyIsLessThanOne() throws WalletMoneyLessThanZeroException {
+    void shouldNotBeAbleToCreditMoneyInTheWalletWhenCreditedMoneyIsLessThanOne() throws WalletMoneyLessThanZeroException {
         Wallet wallet = new Wallet(100);
 
         assertThrows(MoneyLessThanOneException.class,()->wallet.credit(0));
     }
 
     @Test
-    void shouldBeAbleToCreditMoneyWhenCreditedMoneyIsOne() throws MoneyLessThanOneException, WalletMoneyLessThanZeroException {
+    void shouldBeAbleToCreditMoneyInTheWalletWhenCreditedMoneyIsOne() throws MoneyLessThanOneException, WalletMoneyLessThanZeroException {
         Wallet wallet = new Wallet(100);
 
         wallet.credit(1);
@@ -38,7 +38,12 @@ public class WalletTest {
     }
 
     @Test
-    void shouldNotBeAbleToCreateWalletWhereMoneyIsLessThanZero() {
+    void shouldNotBeAbleToCreateWalletWhenMoneyIsLessThanZero() {
         assertThrows(WalletMoneyLessThanZeroException.class,()-> new Wallet(-1));
+    }
+
+    @Test
+    void shouldBeAbleToDebitMoneyOutTheWalletWhenWalletMoneyIsTwoHundredAndDebitedMoneyIsHundred() {
+
     }
 }
