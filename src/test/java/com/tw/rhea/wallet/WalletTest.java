@@ -8,8 +8,7 @@ import org.junit.jupiter.api.Test;
 import static com.tw.rhea.wallet.Wallet.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class WalletTest {
     @Test
@@ -83,12 +82,22 @@ public class WalletTest {
     }
 
     @Test
-    void shouldBeAbleToNotifyOwnerWhenMoneyCreditedInTheWallet() throws WalletMoneyLessThanZeroException, CreditMoneyLessThanOneException {
+    void shouldBeAbleToNotifyWalletOwnerWhenMoneyCreditedInTheWallet() throws WalletMoneyLessThanZeroException, CreditMoneyLessThanOneException {
         WalletOwner owner = new Owner();
         Wallet wallet = createIndianRupeeWallet(300,owner);
 
         wallet.credit(100);
 
         assertTrue(((Owner)owner).isMoneyCredited());
+    }
+
+    @Test
+    void shouldNotBeAbleToNotifyWalletOwnerWhenNoMoneyCreditedInTheWallet() throws WalletMoneyLessThanZeroException {
+        WalletOwner owner = new Owner();
+        Wallet indianRupeeWallet = createIndianRupeeWallet(300,owner);
+
+        indianRupeeWallet.checkBalance();
+
+        assertFalse(((Owner)owner).isMoneyCredited());
     }
 }
