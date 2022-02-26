@@ -1,6 +1,6 @@
 package com.tw.rhea.wallet;
 
-import com.tw.rhea.wallet.Exception.MoneyLessThanOneException;
+import com.tw.rhea.wallet.Exception.CreditMoneyLessThanOneException;
 import com.tw.rhea.wallet.Exception.WalletMoneyLessThanZeroException;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class WalletTest {
     @Test
-    void shouldBeAbleToCreditMoneyInTheWalletWhenCreditMoneyIsTwoHundred() throws MoneyLessThanOneException, WalletMoneyLessThanZeroException {
+    void shouldBeAbleToCreditMoneyInTheWalletWhenCreditMoneyIsTwoHundred() throws CreditMoneyLessThanOneException, WalletMoneyLessThanZeroException {
         Wallet wallet = new Wallet(100);
 
         wallet.credit(200);
@@ -24,11 +24,11 @@ public class WalletTest {
     void shouldNotBeAbleToCreditMoneyInTheWalletWhenCreditedMoneyIsLessThanOne() throws WalletMoneyLessThanZeroException {
         Wallet wallet = new Wallet(100);
 
-        assertThrows(MoneyLessThanOneException.class, () -> wallet.credit(0));
+        assertThrows(CreditMoneyLessThanOneException.class, () -> wallet.credit(0));
     }
 
     @Test
-    void shouldBeAbleToCreditMoneyInTheWalletWhenCreditedMoneyIsOne() throws MoneyLessThanOneException, WalletMoneyLessThanZeroException {
+    void shouldBeAbleToCreditMoneyInTheWalletWhenCreditedMoneyIsOne() throws CreditMoneyLessThanOneException, WalletMoneyLessThanZeroException {
         Wallet wallet = new Wallet(100);
 
         wallet.credit(1);
