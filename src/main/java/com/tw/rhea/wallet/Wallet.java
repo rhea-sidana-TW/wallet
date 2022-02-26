@@ -7,16 +7,20 @@ public class Wallet {
     private double money;
 
     public Wallet(double money) throws WalletMoneyLessThanZeroException {
-        if(money<0) throw new WalletMoneyLessThanZeroException();
+        if (money < 0) throw new WalletMoneyLessThanZeroException();
         this.money = money;
     }
 
-    public void credit(double money) throws MoneyLessThanOneException {
-        if(money<1.0) throw new MoneyLessThanOneException();
-        this.money += money;
+    public void credit(double amount) throws MoneyLessThanOneException {
+        if (amount < 1.0) throw new MoneyLessThanOneException();
+        this.money += amount;
     }
 
     public double checkBalance() {
         return this.money;
+    }
+
+    public void debit(double amount) {
+        this.money -= amount;
     }
 }

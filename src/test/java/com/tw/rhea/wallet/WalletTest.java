@@ -24,7 +24,7 @@ public class WalletTest {
     void shouldNotBeAbleToCreditMoneyInTheWalletWhenCreditedMoneyIsLessThanOne() throws WalletMoneyLessThanZeroException {
         Wallet wallet = new Wallet(100);
 
-        assertThrows(MoneyLessThanOneException.class,()->wallet.credit(0));
+        assertThrows(MoneyLessThanOneException.class, () -> wallet.credit(0));
     }
 
     @Test
@@ -34,16 +34,21 @@ public class WalletTest {
         wallet.credit(1);
         double actualMoney = 101.0;
 
-        assertThat(actualMoney,is(closeTo(wallet.checkBalance(),0.001)));
+        assertThat(actualMoney, is(closeTo(wallet.checkBalance(), 0.001)));
     }
 
     @Test
     void shouldNotBeAbleToCreateWalletWhenMoneyIsLessThanZero() {
-        assertThrows(WalletMoneyLessThanZeroException.class,()-> new Wallet(-1));
+        assertThrows(WalletMoneyLessThanZeroException.class, () -> new Wallet(-1));
     }
 
     @Test
-    void shouldBeAbleToDebitMoneyOutTheWalletWhenWalletMoneyIsTwoHundredAndDebitedMoneyIsHundred() {
+    void shouldBeAbleToDebitMoneyOutTheWalletWhenWalletMoneyIsTwoHundredAndDebitedMoneyIsHundred() throws WalletMoneyLessThanZeroException {
+        Wallet wallet = new Wallet(200);
 
+        wallet.debit(100);
+        double actualMoney = 100;
+
+        assertThat(actualMoney, is(closeTo(wallet.checkBalance(), 0.001)));
     }
 }
