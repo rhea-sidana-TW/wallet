@@ -67,4 +67,11 @@ public class WalletTest {
 
         assertThat(100.0,is(closeTo(wallet.checkBalance(),0.001)));
     }
+
+    @Test
+    void shouldBeAbleToCreateUSDollarWallet() throws WalletMoneyLessThanZeroException {
+        Wallet wallet = Wallet.createUSDollarWallet(100);
+
+        assertThat(100.0,is(closeTo(wallet.checkBalance(),0.001)));
+    }
 }

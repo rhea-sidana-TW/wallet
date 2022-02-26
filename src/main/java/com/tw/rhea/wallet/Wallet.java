@@ -18,6 +18,10 @@ public class Wallet {
         return new Wallet(money,Currency.India_Rupee);
     }
 
+    public static Wallet createUSDollarWallet(double money) throws WalletMoneyLessThanZeroException {
+        return new Wallet(money,Currency.US_Dollar);
+    }
+
     public void credit(double amount) throws CreditMoneyLessThanOneException {
         if (amount < 1.0) throw new CreditMoneyLessThanOneException();
         this.money += amount;
