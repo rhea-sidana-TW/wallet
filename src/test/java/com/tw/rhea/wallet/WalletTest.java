@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class WalletTest {
     @Test
     void shouldBeAbleToCreditMoneyInTheWalletWhenCreditedMoneyIsTwoHundred() throws CreditMoneyLessThanOneException, WalletMoneyLessThanZeroException {
-        Wallet wallet = new Wallet(100, Currency.India_Rupee);
+        Wallet wallet = createIndianRupeeWallet(100);
 
         wallet.credit(200);
         double actualMoney = 300.0;
@@ -24,14 +24,14 @@ public class WalletTest {
 
     @Test
     void shouldNotBeAbleToCreditMoneyInTheWalletWhenCreditedMoneyIsLessThanOne() throws WalletMoneyLessThanZeroException {
-        Wallet wallet = new Wallet(100, Currency.India_Rupee);
+        Wallet wallet = createIndianRupeeWallet(100);
 
         assertThrows(CreditMoneyLessThanOneException.class, () -> wallet.credit(0));
     }
 
     @Test
     void shouldBeAbleToCreditMoneyInTheWalletWhenCreditedMoneyIsOne() throws CreditMoneyLessThanOneException, WalletMoneyLessThanZeroException {
-        Wallet wallet = new Wallet(100, Currency.India_Rupee);
+        Wallet wallet = createIndianRupeeWallet(100);
 
         wallet.credit(1);
         double actualMoney = 101.0;
@@ -41,12 +41,12 @@ public class WalletTest {
 
     @Test
     void shouldNotBeAbleToCreateWalletWhenMoneyIsLessThanZero() {
-        assertThrows(WalletMoneyLessThanZeroException.class, () -> new Wallet(-1, Currency.India_Rupee));
+        assertThrows(WalletMoneyLessThanZeroException.class, () -> createUSDollarWallet(-1));
     }
 
     @Test
     void shouldBeAbleToDebitMoneyOutTheWalletWhenWalletMoneyIsTwoHundredAndDebitedMoneyIsHundred() throws WalletMoneyLessThanZeroException, DebitMoneyGreaterThanWalletMoneyException {
-        Wallet wallet = new Wallet(200, Currency.India_Rupee);
+        Wallet wallet = createIndianRupeeWallet(200);
 
         wallet.debit(100);
         double actualMoney = 100;
@@ -56,7 +56,7 @@ public class WalletTest {
 
     @Test
     void shouldNotBeAbleToDebitMoneyOutTheWalletWhenWalletMoneyIsHundredAndDebitedMoneyIsTwoHundred() throws WalletMoneyLessThanZeroException {
-        Wallet wallet = new Wallet(100, Currency.India_Rupee);
+        Wallet wallet = createIndianRupeeWallet(100);
 
         assertThrows(DebitMoneyGreaterThanWalletMoneyException.class,()->wallet.debit(200));
     }

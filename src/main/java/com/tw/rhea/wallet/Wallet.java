@@ -8,7 +8,7 @@ public class Wallet {
     private final Currency currency;
     private double money;
 
-    public Wallet(double money, Currency currency) throws WalletMoneyLessThanZeroException {
+    private Wallet(double money, Currency currency) throws WalletMoneyLessThanZeroException {
         if (money < 0) throw new WalletMoneyLessThanZeroException();
         this.money = money;
         this.currency=currency;
