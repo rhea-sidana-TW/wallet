@@ -22,4 +22,12 @@ public class CurrencyTest {
 
         assertThat(actual, is(closeTo(dollarToBase,0.001)));
     }
+
+    @Test
+    void shouldBeAbleToConvertIndianRupeeToUsDollar() {
+        double rupeeToDollar = Currency.India_Rupee.convertToUsDollar(225.18);
+        double actual = 3;
+
+        assertThat(actual, is(closeTo(rupeeToDollar,0.001)));
+    }
 }
