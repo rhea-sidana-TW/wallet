@@ -5,11 +5,17 @@ import com.tw.rhea.wallet.Exception.DebitMoneyGreaterThanWalletMoneyException;
 import com.tw.rhea.wallet.Exception.WalletMoneyLessThanZeroException;
 
 public class Wallet {
+    private final Currency currency;
     private double money;
 
-    public Wallet(double money) throws WalletMoneyLessThanZeroException {
+    public Wallet(double money, Currency currency) throws WalletMoneyLessThanZeroException {
         if (money < 0) throw new WalletMoneyLessThanZeroException();
         this.money = money;
+        this.currency=currency;
+    }
+
+    public static Wallet createIndianRupeeWallet(double money) throws WalletMoneyLessThanZeroException {
+        return new Wallet(money,Currency.India_Rupee);
     }
 
     public void credit(double amount) throws CreditMoneyLessThanOneException {
