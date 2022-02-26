@@ -40,4 +40,7 @@ public class Wallet {
         owner.notifyMoneyDebited();
     }
 
+    public double getAmountInDollar() {
+        return (this.currency.convertToUsDollar(this.money));
+    }
 }

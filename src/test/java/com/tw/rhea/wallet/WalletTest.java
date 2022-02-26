@@ -120,4 +120,15 @@ public class WalletTest {
 
         assertFalse(((Owner)owner).isMoneyDebited());
     }
+
+    @Test
+    void shouldBeAbleToReturnDollarEquivalentMoneyWhenIndianRupeeWallet() throws WalletMoneyLessThanZeroException {
+        WalletOwner owner = new Owner();
+        Wallet indianRupeeWallet = createIndianRupeeWallet(300, owner);
+
+        double moneyConvertToDollar = indianRupeeWallet.getAmountInDollar();
+        double actualDollar = 3.996;
+
+        assertThat(actualDollar, is(closeTo(moneyConvertToDollar,0.001)));
+    }
 }
