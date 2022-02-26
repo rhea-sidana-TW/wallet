@@ -1,6 +1,7 @@
 package com.tw.rhea.wallet;
 
 import com.tw.rhea.wallet.Exception.CreditMoneyLessThanOneException;
+import com.tw.rhea.wallet.Exception.DebitMoneyGreaterThanWalletMoneyException;
 import com.tw.rhea.wallet.Exception.WalletMoneyLessThanZeroException;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class WalletTest {
     @Test
-    void shouldBeAbleToCreditMoneyInTheWalletWhenCreditMoneyIsTwoHundred() throws CreditMoneyLessThanOneException, WalletMoneyLessThanZeroException {
+    void shouldBeAbleToCreditMoneyInTheWalletWhenCreditedMoneyIsTwoHundred() throws CreditMoneyLessThanOneException, WalletMoneyLessThanZeroException {
         Wallet wallet = new Wallet(100);
 
         wallet.credit(200);
@@ -43,12 +44,19 @@ public class WalletTest {
     }
 
     @Test
-    void shouldBeAbleToDebitMoneyOutTheWalletWhenWalletMoneyIsTwoHundredAndDebitedMoneyIsHundred() throws WalletMoneyLessThanZeroException {
+    void shouldBeAbleToDebitMoneyOutTheWalletWhenWalletMoneyIsTwoHundredAndDebitedMoneyIsHundred() throws WalletMoneyLessThanZeroException, DebitMoneyGreaterThanWalletMoneyException {
         Wallet wallet = new Wallet(200);
 
         wallet.debit(100);
         double actualMoney = 100;
 
         assertThat(actualMoney, is(closeTo(wallet.checkBalance(), 0.001)));
+    }
+
+    @Test
+    void shouldNotBeAbleToDebitMoneyOutTheWalletWhenWalletMoneyIsHundredAndDebitedMoneyIsTwoHundred() throws WalletMoneyLessThanZeroException {
+        Wallet wallet = new Wallet(100);
+
+        assertThrows(DebitMoneyGreaterThanWalletMoneyException.class,()->wallet.debit(200));
     }
 }

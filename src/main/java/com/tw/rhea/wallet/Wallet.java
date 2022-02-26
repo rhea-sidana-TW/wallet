@@ -1,6 +1,7 @@
 package com.tw.rhea.wallet;
 
 import com.tw.rhea.wallet.Exception.CreditMoneyLessThanOneException;
+import com.tw.rhea.wallet.Exception.DebitMoneyGreaterThanWalletMoneyException;
 import com.tw.rhea.wallet.Exception.WalletMoneyLessThanZeroException;
 
 public class Wallet {
@@ -20,7 +21,8 @@ public class Wallet {
         return this.money;
     }
 
-    public void debit(double amount) {
+    public void debit(double amount) throws DebitMoneyGreaterThanWalletMoneyException {
+        if(this.money-amount<0) throw new DebitMoneyGreaterThanWalletMoneyException();
         this.money -= amount;
     }
 }
