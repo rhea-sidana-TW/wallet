@@ -7,14 +7,14 @@ import org.junit.jupiter.api.Test;
 
 import static com.tw.rhea.wallet.Wallet.*;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.closeTo;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class WalletTest {
     @Test
     void shouldBeAbleToCreditMoneyInTheWalletWhenCreditedMoneyIsTwoHundred() throws CreditMoneyLessThanOneException, WalletMoneyLessThanZeroException {
-        Wallet wallet = createIndianRupeeWallet(100);
+        WalletOwner owner = new Owner();
+        Wallet wallet = createIndianRupeeWallet(100, owner);
 
         wallet.credit(200);
         double actualMoney = 300.0;
@@ -24,14 +24,16 @@ public class WalletTest {
 
     @Test
     void shouldNotBeAbleToCreditMoneyInTheWalletWhenCreditedMoneyIsLessThanOne() throws WalletMoneyLessThanZeroException {
-        Wallet wallet = createIndianRupeeWallet(100);
+        WalletOwner owner = new Owner();
+        Wallet wallet = createIndianRupeeWallet(100, owner);
 
         assertThrows(CreditMoneyLessThanOneException.class, () -> wallet.credit(0));
     }
 
     @Test
     void shouldBeAbleToCreditMoneyInTheWalletWhenCreditedMoneyIsOne() throws CreditMoneyLessThanOneException, WalletMoneyLessThanZeroException {
-        Wallet wallet = createIndianRupeeWallet(100);
+        WalletOwner owner = new Owner();
+        Wallet wallet = createIndianRupeeWallet(100, owner);
 
         wallet.credit(1);
         double actualMoney = 101.0;
@@ -41,12 +43,13 @@ public class WalletTest {
 
     @Test
     void shouldNotBeAbleToCreateWalletWhenMoneyIsLessThanZero() {
-        assertThrows(WalletMoneyLessThanZeroException.class, () -> createUSDollarWallet(-1));
+        assertThrows(WalletMoneyLessThanZeroException.class, () -> createUSDollarWallet(-1, new Owner()));
     }
 
     @Test
     void shouldBeAbleToDebitMoneyOutTheWalletWhenWalletMoneyIsTwoHundredAndDebitedMoneyIsHundred() throws WalletMoneyLessThanZeroException, DebitMoneyGreaterThanWalletMoneyException {
-        Wallet wallet = createIndianRupeeWallet(200);
+        WalletOwner owner = new Owner();
+        Wallet wallet = createIndianRupeeWallet(200, owner);
 
         wallet.debit(100);
         double actualMoney = 100;
@@ -56,22 +59,26 @@ public class WalletTest {
 
     @Test
     void shouldNotBeAbleToDebitMoneyOutTheWalletWhenWalletMoneyIsHundredAndDebitedMoneyIsTwoHundred() throws WalletMoneyLessThanZeroException {
-        Wallet wallet = createIndianRupeeWallet(100);
+        WalletOwner owner = new Owner();
+        Wallet wallet = createIndianRupeeWallet(100, owner);
 
-        assertThrows(DebitMoneyGreaterThanWalletMoneyException.class,()->wallet.debit(200));
+        assertThrows(DebitMoneyGreaterThanWalletMoneyException.class, () -> wallet.debit(200));
     }
 
     @Test
     void shouldBeAbleToCreateIndianRupeeWallet() throws WalletMoneyLessThanZeroException {
-        Wallet wallet = createIndianRupeeWallet(100);
+        WalletOwner owner = new Owner();
+        Wallet wallet = createIndianRupeeWallet(100, owner);
 
-        assertThat(100.0,is(closeTo(wallet.checkBalance(),0.001)));
+        assertThat(100.0, is(closeTo(wallet.checkBalance(), 0.001)));
     }
 
     @Test
     void shouldBeAbleToCreateUSDollarWallet() throws WalletMoneyLessThanZeroException {
-        Wallet wallet = Wallet.createUSDollarWallet(100);
+        WalletOwner owner = new Owner();
+        Wallet wallet = Wallet.createUSDollarWallet(100, owner);
 
-        assertThat(100.0,is(closeTo(wallet.checkBalance(),0.001)));
+        assertThat(100.0, is(closeTo(wallet.checkBalance(), 0.001)));
     }
+
 }

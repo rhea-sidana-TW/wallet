@@ -6,7 +6,15 @@ public enum Currency {
 
     private final double conversionFactor;
 
-    Currency(double conversionFactor){
-        this.conversionFactor=conversionFactor;
+    Currency(double conversionFactor) {
+        this.conversionFactor = conversionFactor;
+    }
+
+    public double convertToBase(double amount) {
+        return (amount * this.conversionFactor);
+    }
+
+    public double convertToUsDollar(double amount) {
+        return (convertToBase(amount) / US_Dollar.conversionFactor);
     }
 }

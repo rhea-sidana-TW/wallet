@@ -6,20 +6,22 @@ import com.tw.rhea.wallet.Exception.WalletMoneyLessThanZeroException;
 
 public class Wallet {
     private final Currency currency;
+    private final WalletOwner owner;
     private double money;
 
-    private Wallet(double money, Currency currency) throws WalletMoneyLessThanZeroException {
+    private Wallet(double money, Currency currency, WalletOwner owner) throws WalletMoneyLessThanZeroException {
         if (money < 0) throw new WalletMoneyLessThanZeroException();
         this.money = money;
-        this.currency=currency;
+        this.currency = currency;
+        this.owner = owner;
     }
 
-    public static Wallet createIndianRupeeWallet(double money) throws WalletMoneyLessThanZeroException {
-        return new Wallet(money,Currency.India_Rupee);
+    public static Wallet createIndianRupeeWallet(double money,WalletOwner owner) throws WalletMoneyLessThanZeroException {
+        return new Wallet(money, Currency.India_Rupee,owner);
     }
 
-    public static Wallet createUSDollarWallet(double money) throws WalletMoneyLessThanZeroException {
-        return new Wallet(money,Currency.US_Dollar);
+    public static Wallet createUSDollarWallet(double money,WalletOwner owner) throws WalletMoneyLessThanZeroException {
+        return new Wallet(money, Currency.US_Dollar,owner);
     }
 
     public void credit(double amount) throws CreditMoneyLessThanOneException {
@@ -32,7 +34,8 @@ public class Wallet {
     }
 
     public void debit(double amount) throws DebitMoneyGreaterThanWalletMoneyException {
-        if(this.money-amount<0) throw new DebitMoneyGreaterThanWalletMoneyException();
+        if (this.money - amount < 0) throw new DebitMoneyGreaterThanWalletMoneyException();
         this.money -= amount;
     }
+
 }
