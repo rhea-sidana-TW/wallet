@@ -43,4 +43,8 @@ public class Wallet {
     public double getAmountInDollar() {
         return (this.currency.convertToUsDollar(this.money));
     }
+
+    public double getAmountInRupee() {
+        return (this.currency.convertToBase(this.money));
+    }
 }

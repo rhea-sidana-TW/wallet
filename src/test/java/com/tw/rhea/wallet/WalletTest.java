@@ -122,7 +122,7 @@ public class WalletTest {
     }
 
     @Test
-    void shouldBeAbleToReturnDollarEquivalentMoneyWhenIndianRupeeWallet() throws WalletMoneyLessThanZeroException {
+    void shouldBeAbleToReturnUSDollarEquivalentMoneyWhenIndianRupeeWallet() throws WalletMoneyLessThanZeroException {
         WalletOwner owner = new Owner();
         Wallet indianRupeeWallet = createIndianRupeeWallet(300, owner);
 
@@ -130,5 +130,16 @@ public class WalletTest {
         double actualDollar = 3.996;
 
         assertThat(actualDollar, is(closeTo(moneyConvertToDollar,0.001)));
+    }
+
+    @Test
+    void shouldBeAbleToReturnIndianRupeeEquivalentMoneyWhenUSDollarWallet() throws WalletMoneyLessThanZeroException {
+        WalletOwner owner = new Owner();
+        Wallet usDollarWallet = createUSDollarWallet(3, owner);
+
+        double moneyConvertToRupee = usDollarWallet.getAmountInRupee();
+        double actualRupee = 225.18;
+
+        assertThat(actualRupee, is(closeTo(moneyConvertToRupee,0.001)));
     }
 }
